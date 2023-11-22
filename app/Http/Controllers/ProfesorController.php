@@ -64,6 +64,7 @@ class ProfesorController extends Controller
     {
         $profesor = Profesor::find($id);
         $profesor->delete();
+//solo un comentario
 
         return redirect()->route('profesores.index');
     }
