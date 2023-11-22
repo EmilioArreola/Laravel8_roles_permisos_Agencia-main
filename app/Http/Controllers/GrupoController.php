@@ -51,19 +51,29 @@ class GrupoController extends Controller
     public function edit(Grupo $grupo)
     {
         
-        return view('grupo.editar',compact('grupo'));
+        return view('grupos.editar',compact('grupo'));
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Grupo $grupo)
     {
-        //
+        request()->validate([
+            'nombre' => 'required',
+            'cupo' => 'required',
+            'salon' => 'required',
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
+        
+        ]);
+        $grupo->update($request->all());
+        return redirect()->route('grupos.index');  
+    
     }
 
     public function destroy(Grupo $grupo)
     {
         $grupo->delete();
     
-        return redirect()->route('grupo.index');
+        return redirect()->route('grupos.index');
     }
 }

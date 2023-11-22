@@ -48,7 +48,7 @@
                                             <td>{{ $curso->nombre }}</td>
                                             <td>
                                                 <form action="{{ route('grupos.destroy',$grupo->id_grupo) }}" method="POST">                                        
-                                                    @can('editar-grupo')
+                                                    @can('editar-grupos')
                                                         <a class="btn btn-info" href="{{ route('grupos.edit',$grupo->id_grupo) }}">Editar</a>
                                                     @endcan
 
