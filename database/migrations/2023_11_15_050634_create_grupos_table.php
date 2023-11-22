@@ -18,8 +18,8 @@ class CreateGruposTable extends Migration
             $table->string('nombre');
             $table-> integer ('cupo');
             $table-> string ('salon');
-            $table-> date ('hora_inicio');
-            $table-> date ('hora_fin');
+            $table-> time ('hora_inicio');
+            $table-> time ('hora_fin');
 
             $table->foreignId('profesor_id')->constrained('profesores', 'id_profesor');
             $table->foreignId('curso_id')->constrained('cursos', 'id_curso');
@@ -34,6 +34,7 @@ class CreateGruposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grupos');
+        Schema::dropIfExists('grupos'); //oooooooooooooooooooooooooooo
+        
     }
 }

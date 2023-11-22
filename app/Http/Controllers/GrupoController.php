@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Curso; // Agregar la importación de la clase Curso
 use App\Models\Profesor; // Agregar la importación de la clase Profesor
 use App\Models\Grupo; // Agregar la importación de la clase Profesor
-use Illuminate\Support\Facades\DB;
 
 class GrupoController extends Controller
 {
@@ -17,84 +16,54 @@ class GrupoController extends Controller
         $this->middleware('permission:editar-grupos', ['only' => ['edit', 'update']]);
         $this->middleware('permission:borrar-grupos', ['only' => ['destroy']]);
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $grupos = Grupo::paginate(10);
+        $grupos = Grupo::all();
 
         return view('grupos.index', compact('grupos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $profesores = Profesor::all(); // Ajusta esto según tu lógica de obtención de profesores
-        $cursos = Curso::all(); // Ajusta esto según tu lógica de obtención de cursos
-    
-        return view('grupos.crear', compact('profesores', 'cursos'));
+        
+        return view('grupos.crear');
     }
-    
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function store(Request $request)
     {
-        $profesor = Profesor::find($id);
-        $curso = Curso::find($id);
-        $grupo = Grupo::get();
-        $grupoNuevo = DB::table("grupo")->where("grupo.id_profesor",$id)
-            ->pluck('grupo.id_profesor','grupo.id_profesor')
-            ->all();
-    
-        return view('grupo.editar',compact('nombre','cupo','salon','hora_inicio', 'hora_fin'));
+        request()->validate([
+            'nombre' => 'required',
+            'cupo' => 'required',
+            'salon' => 'required',
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
+        
+        ]);
+        Grupo::create($request->all());
+        return redirect()->route('grupos.index');  
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function edit(Grupo $grupo)
+    {
+        
+        return view('grupo.editar',compact('grupo'));
+    }
+
+
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Grupo $grupo)
     {
-        DB::table("grupos")->where('id_grupo',$id)->delete();
-        return redirect()->route('grupos.index');
+        $grupo->delete();
+    
+        return redirect()->route('grupo.index');
     }
 }

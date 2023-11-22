@@ -13,9 +13,16 @@ class Grupo extends Model
         'nombre',
         'cupo',
         'salon',
-        'horario_inicio',
-        'horario_fin',
+        'hora_inicio',
+        'hora_fin',
         'curso_id',
         'profesor_id',
     ];
+
+    protected $primaryKey = 'id_grupo';
+
+    public $incrementing = true;
+
+    public $timestamps = false;
+    
 }

@@ -33,13 +33,13 @@
                                             <td>{{ $profesor->apellido_materno }}</td>
                                             <td>
                                                 <form action="{{ route('profesores.destroy',$profesor->id_profesor) }}" method="POST">                                        
-                                                    @can('editar-grupo')
+                                                    @can('editar-profesor')
                                                         <a class="btn btn-info" href="{{ route('profesores.edit',$profesor->id_profesor) }}">Editar</a>
                                                     @endcan
 
                                                     @csrf
                                                     @method('DELETE')
-                                                    @can('borrar-grupo')
+                                                    @can('borrar-profesor')
                                                         <button type="submit" class="btn btn-danger">Borrar</button>
                                                     @endcan
                                                 </form>

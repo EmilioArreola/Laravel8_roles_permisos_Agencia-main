@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     
     Route::resource('profesores', ProfesorController::class);
+  //  Route::patch('/profesores/{profesor}', 'ProfesorController@update')->name('profesores.update');
     Route::resource('cursos', CursoController::class);
     Route::resource('grupos', GrupoController::class);
 });

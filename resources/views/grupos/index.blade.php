@@ -25,18 +25,27 @@
                                     <th style="color:#fff;">Horario Fin</th>
                                     <th style="color:#fff;">Profesor</th>
                                     <th style="color:#fff;">Curso</th>
+                                    <th style="color:#fff;">Acciones</th>
+
                                 </thead>
                                 <tbody>
                                     @foreach ($grupos as $grupo)
+                                    @php
+                                        $profesor = App\Models\Profesor::find($grupo->profesor_id);
+                                     @endphp
+                                     @php
+                                        $curso = App\Models\Curso::find($grupo->curso_id);
+                                     @endphp
+
                                         <tr>
                                             <td style="display: none;">{{ $grupo->id_grupo }}</td>
                                             <td>{{ $grupo->nombre }}</td>
                                             <td>{{ $grupo->cupo }}</td>
                                             <td>{{ $grupo->salon }}</td>
-                                            <td>{{ $grupo->horario_inicio }}</td>
-                                            <td>{{ $grupo->horario_fin }}</td>
-                                            <td>{{ $grupo->profesor->nombreCompleto() }}</td>
-                                            <td>{{ $grupo->curso->nombre }}</td>
+                                            <td>{{ $grupo->hora_inicio }}</td>
+                                            <td>{{ $grupo->hora_fin }}</td>
+                                            <td>{{ $profesor->nombre }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</td>
+                                            <td>{{ $curso->nombre }}</td>
                                             <td>
                                                 <form action="{{ route('grupos.destroy',$grupo->id_grupo) }}" method="POST">                                        
                                                     @can('editar-grupo')
@@ -71,25 +80,27 @@
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     <script>
         new DataTable('#miTabla', {
-            lengthMenu: [
-                [2, 5, 10],
-                [2, 5, 10]
-            ],
+  lengthMenu: [
+    [2, 5, 10],
+    [2, 5, 10]
+  ],
 
-            columns: [
-                { Id: 'Id' },
-                { Nombre: 'Nombre' },
-                { Cupo: 'Cupo' },
-                { Salon: 'Salon' },
-                { HorarioInicio: 'Horario Inicio' },
-                { HorarioFin: 'Horario Fin' },
-                { Profesor: 'Profesor' },
-                { Curso: 'Curso' },
-            ],
+  columns: [
+    { Id: 'id_grupo' },
+    { Nombre: 'nombre' },
+    { Cupo: 'cupo' },
+    { Salon: 'salon' },
+    { Hora_Inicio: 'horario_inicio' },
+    { Hora_Fin: 'horario_fin' },
+    { Profesor: 'profesor' },
+    { Curso: 'curso' },
+    { Acciones: 'acciones' },
+  ],
 
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
-            }
-        });
+  language: {
+    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+  }
+});
+
     </script>
 @endsection

@@ -24,9 +24,12 @@
                             @endif
 
                             {!! Form::model($profesor, ['method' => 'PATCH', 'route' => ['profesores.update', $profesor->id_profesor]]) !!}
+
+                            @csrf
+
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
+                                <div class="form-group">
                                         <label for="nombre">Nombre</label><span class="required text-danger">*</span>
                                         <input type="text" name="nombre" class="form-control" value="{{ $profesor->nombre }}">
                                     </div>

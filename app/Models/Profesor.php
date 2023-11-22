@@ -9,10 +9,10 @@ class Profesor extends Model
 {
     use HasFactory;
 
-    protected $table = 'profesores';//Prote
+    public $table = 'profesores';//Prote
 
     protected $fillable = [
-        'id_profesor',
+        //'id_profesor',
         'nombre',
         'apellido_paterno',
         'apellido_materno',
