@@ -24,5 +24,5 @@ class Grupo extends Model
     public $incrementing = true;
 
     public $timestamps = false;
-    
+    //aaaaaaaaaaaaaaaaaaa
 }
